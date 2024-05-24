@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
-const bcrypt = require('bcrypt');
+//const bcrypt = require('bcrypt');
 const validator = require('validator'); // Make sure you have installed validator using npm install validator
 
 const userInfoSchema = new Schema({
@@ -70,8 +70,8 @@ userInfoSchema.statics.signup = async function (userID, email, username, firstNa
     }
 
     // password hashing
-    const salt = await bcrypt.genSalt(10);
-    const hash = await bcrypt.hash(password, salt);
+    //const salt = await bcrypt.genSalt(10);
+    //const hash = await bcrypt.hash(password, salt);
 
     // create user
     const user = await this.create({
@@ -80,7 +80,7 @@ userInfoSchema.statics.signup = async function (userID, email, username, firstNa
         username,
         firstName,
         lastName,
-        password: hash,
+        password,
         location,
         preferredLanguage
     });
@@ -103,8 +103,8 @@ userInfoSchema.statics.login = async function (email, password){
         throw Error('Incorrect Username')
     }
 
-    const match = await bcrypt.compare(password, user.password)
-
+    //const match = await bcrypt.compare(password, user.password)
+    const match = await compare(password, user.password)
     if(!match){
         throw Error('Incorrect password')
     }
