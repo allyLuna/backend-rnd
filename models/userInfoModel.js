@@ -90,28 +90,26 @@ userInfoSchema.statics.signup = async function (userID, email, username, firstNa
 
 
 // static login method
-userInfoSchema.statics.login = async function (email, password){
-    
-    // validation 
-    if(!email || !password ){
-        throw Error('All fields must be filled')
+userInfoSchema.statics.login = async function (email, password) {
+    // Validation
+    if (!email || !password) {
+        throw Error('All fields must be filled');
     }
 
-    const user = await this.findOne({ email })
-    
-    if(!user){
-        throw Error('Incorrect Username')
+    const user = await this.findOne({ email });
+
+    if (!user) {
+        throw Error('Incorrect Email');
     }
 
-    //const match = await bcrypt.compare(password, user.password)
-    const match = await compare(password, user.password)
-    if(!match){
-        throw Error('Incorrect password')
+    // Compare the provided password with the password stored in the database
+    if (password !== user.password) {
+        throw Error('Incorrect Password');
     }
 
-    return user
+    return user;
+};
 
-}
 
 
 // Create and export the model
