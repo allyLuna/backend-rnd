@@ -69,9 +69,10 @@ userInfoSchema.statics.signup = async function (userID, email, username, firstNa
         throw Error('Username already in use');
     }
 
-    // password hashing
-    //const salt = await bcrypt.genSalt(10);
-    //const hash = await bcrypt.hash(password, salt);
+    const uidExists = await this.findOne({ userID });
+    if (uidExists) {
+        throw Error('Username already in use');
+    }
 
     // create user
     const user = await this.create({
@@ -108,6 +109,43 @@ userInfoSchema.statics.login = async function (email, password) {
     }
 
     return user;
+};
+
+// fetch all users 
+userInfoSchema.statics.getAllUsers = async function () {
+    try {
+        const users = await this.find({});
+        return users;
+    } catch (error) {
+        throw new Error(error.message);
+    }
+};
+
+userInfoSchema.statics.updateUserInfo = async function (userId, newLocation, newPreferredLanguage) {
+    try {
+        const userInfo = await this.findOne({ userId });
+
+        if (!userInfo) {
+            throw new Error('User info not found');
+        }
+
+        // Update location if provided
+        if (newLocation) {
+            userInfo.location = newLocation;
+        }
+
+        // Update preferred language if provided
+        if (newPreferredLanguage) {
+            userInfo.preferredLanguage = newPreferredLanguage;
+        }
+
+        // Save the updated user info
+        await userInfo.save();
+
+        return userInfo;
+    } catch (error) {
+        throw new Error(error.message);
+    }
 };
 
 
