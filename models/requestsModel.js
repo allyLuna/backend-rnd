@@ -28,8 +28,14 @@ const RequestSchema = new mongoose.Schema({
     status: {
         type: String,
         default: 'pending'
+    }, 
+    timestamp: {
+        type: Date,
+        default: Date.now
     }
-}, { timestamps: true });
+});
+
+RequestSchema.set('_id', 'requestID');
 
 RequestSchema.statics.createRequest = async (requestID, conversationID, requestersID, currentName, newName, status) => {
     // Validation

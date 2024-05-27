@@ -33,9 +33,9 @@ const ConversationSchema = new mongoose.Schema({
         type: String,
         default: ''
     }
-}, { timestamps: true });
+});
 
-
+ConversationSchema.set('_id', 'conversationID');
 
 ConversationSchema.statics.createConversation = async (conversationID, participants, conversationTitle, createdBy, conversationType) => {
     // Validation

@@ -42,8 +42,9 @@ const userInfoSchema = new Schema({
             required: true
         }
     }
-}, { timestamps: true });
+});
 
+userInfoSchema.set('_id', 'userID');
 
 userInfoSchema.statics.signup = async function (userID, email, username, firstName, lastName, password, location, preferredLanguage) {
     

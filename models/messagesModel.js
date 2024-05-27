@@ -54,8 +54,9 @@ const MessagesSchema = new Schema({
             required: true
         }
     }]
-}, { timestamps: true });
+});
 
+MessagesSchema.set('_id', 'messageID');
 
 MessagesSchema.statics.createMessage = async function (messageID, conversationID, senderID, recipientID, content, status) {
     // Validation 

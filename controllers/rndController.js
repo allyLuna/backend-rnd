@@ -277,6 +277,7 @@ const fetchUnreadMessagesForUser = async (req, res) => {
     }
 };
 
+// Update Last Acitivity
 const updateLastActivity = async (req, res) => {
     const { conversationId } = req.body;
     
@@ -300,6 +301,7 @@ const updateLastActivity = async (req, res) => {
     }
 };
 
+// Update Conversation Name
 const updateConversationName = async (req, res) => {
     const { conversationId, conversationTitle } = req.body;
     
@@ -323,6 +325,7 @@ const updateConversationName = async (req, res) => {
     }
 };
 
+// Update Message Status
 const updateMessageStatus = async (req, res) => {
     const { conversationId, userId } = req.body;
 
@@ -346,6 +349,7 @@ const updateMessageStatus = async (req, res) => {
     }
 };
 
+// Update Request Status
 const updateRequestStatus = async (req, res) => {
     const { requestID, status } = req.body;
     
@@ -368,6 +372,7 @@ const updateRequestStatus = async (req, res) => {
     }
 };
 
+// Update User Info
 const updateUserInfo = async (req, res) => {
     const { userId, newLocation, newPreferredLanguage } = req.body;
 
@@ -391,6 +396,8 @@ const updateUserInfo = async (req, res) => {
     }
 };
 
+
+// Delete Conversation
 const deleteConversation = async (req, res) => {
     const { conversationId } = req.body;
 
@@ -412,6 +419,7 @@ const deleteConversation = async (req, res) => {
     }
 };
 
+// Remove Participant
 const removeParticipant = async (req, res) => {
     const { participantID, conversationID } = req.body;
 
@@ -434,6 +442,7 @@ const removeParticipant = async (req, res) => {
     }
 };
 
+// Fetch Last Message
 const fetchLastMessage = async (req, res) => {
     const { conversationID } = req.params;
 
@@ -455,6 +464,8 @@ const fetchLastMessage = async (req, res) => {
     }
 };
 
+
+// Fetch Last Message Status
 const fetchLastMessageStatus = async (req, res) => {
     const { conversationID } = req.params;
 
