@@ -20,7 +20,8 @@ const {
     deleteConversation, 
     removeParticipant, 
     fetchLastMessage, 
-    fetchLastMessageStatus
+    fetchLastMessageStatus, 
+    checkIfExistingConversation
 } = require ('../controllers/rndController')
 
 const router = express.Router()
@@ -39,8 +40,10 @@ router.post('/fetch-messages', fetchMessages)   // Fetch messages for the conver
 router.post('/fetch-request-admin', fetchRequestsForAdmin)   // Fetch requests for the admin
 router.post('/fetch-request-users', fetchRequestsForUser)   // Fetch requests for the users
 router.post('/fetch-unread-messages', fetchUnreadMessagesForUser)   // Fetch requests for the users
+router.post('/checkConversation', checkIfExistingConversation)   // Fetch requests for the users
 router.get('/fetch-last-message/:conversationID', fetchLastMessage);
 router.get('/fetch-last-message-status/:conversationID', fetchLastMessageStatus);
+
 
 // UPDATE METHODS - PATCH
 router.patch('/update-last-activity', updateLastActivity);

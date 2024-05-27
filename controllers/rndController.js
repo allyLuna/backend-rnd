@@ -489,6 +489,29 @@ const fetchLastMessageStatus = async (req, res) => {
     }
 };
 
+const checkIfExistingConversation = async (req, res) => {
+    const { participants } = req.body;
+
+    try {
+        const conversation = await ConversationInfo.checkIfExistingConversation(participants);
+
+        const successResponse = {
+            statusCode: 200,
+            message: "Success",
+            results: conversation.conversationID
+        };
+
+        res.status(200).json(successResponse);
+    } catch (error) {
+        const errorResponse = {
+            statusCode: 400,
+            message: error.message
+        };
+        
+        res.status(400).json(errorResponse);
+    }
+};
+
 module.exports = {
     createUser,
     loginUser, 
@@ -509,5 +532,6 @@ module.exports = {
     deleteConversation, 
     removeParticipant, 
     fetchLastMessage, 
-    fetchLastMessageStatus
+    fetchLastMessageStatus, 
+    checkIfExistingConversation
 };

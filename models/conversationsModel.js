@@ -195,6 +195,27 @@ ConversationSchema.statics.removeParticipantFromConversation = async function (p
     }
 };
 
+ConversationSchema.statics.checkIfExistingConversation = async function (participants) {
+    try {
+        // Sort the participants array to ensure consistency
+        participants.sort();
+
+        // Find the conversation where the participants exactly match the provided list
+        const existingConversation = await this.findOne({ participants: participants });
+
+        // If an existing conversation is found, return it
+        if (existingConversation) {
+            return existingConversation;
+        } else {
+            // If no existing conversation is found, return null
+            return null;
+        }
+    } catch (error) {
+        // If an error occurs, throw it
+        throw new Error(error.message);
+    }
+};
+
 
 
 // Create a model from the schema
