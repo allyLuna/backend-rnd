@@ -505,7 +505,8 @@ const checkIfExistingConversation = async (req, res) => {
     } catch (error) {
         const errorResponse = {
             statusCode: 400,
-            message: error.message
+            message: error.message,
+            results: " "
         };
         
         res.status(400).json(errorResponse);
