@@ -187,10 +187,10 @@ const fetchConversations = async (req, res) => {
 
 // Fetch Messages 
 const fetchMessages = async (req, res) => {
-    const { conversationId } = req.body;
+    const { conversationID } = req.params;
 
     try {
-        const messages = await MessageInfo.getMessages(conversationId);
+        const messages = await MessageInfo.getMessages(conversationID);
         const successResponse = {
             statusCode: 200,
             message: "Success",

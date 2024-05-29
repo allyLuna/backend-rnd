@@ -36,7 +36,7 @@ router.post('/create-request', createRequests)   // New request
 // FETCH METHODS
 router.get('/fetch-all-users', fetchAllUsers)   // Fetch all users
 router.post('/fetch-conversations', fetchConversations)   // Fetch conversations for the current user
-router.post('/fetch-messages', fetchMessages)   // Fetch messages for the conversation
+router.get('/fetch-messages/:conversationID', fetchMessages)   // Fetch messages for the conversation
 router.post('/fetch-request-admin', fetchRequestsForAdmin)   // Fetch requests for the admin
 router.post('/fetch-request-users', fetchRequestsForUser)   // Fetch requests for the users
 router.post('/fetch-unread-messages', fetchUnreadMessagesForUser)   // Fetch requests for the users

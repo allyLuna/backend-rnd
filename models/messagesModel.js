@@ -87,7 +87,7 @@ MessagesSchema.statics.createMessage = async function (messageID, conversationID
 
 MessagesSchema.statics.getMessages = async function (conversationId) {
     try {
-        const conversations = await this.find({ conversationId: conversationId });
+        const conversations = await this.find({ conversationID: conversationId });
         return conversations;
     } catch (error) {
         throw new Error(error.message);
