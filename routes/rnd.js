@@ -39,7 +39,7 @@ router.post('/fetch-conversations', fetchConversations)   // Fetch conversations
 router.get('/fetch-messages/:conversationID', fetchMessages)   // Fetch messages for the conversation
 router.post('/fetch-request-admin', fetchRequestsForAdmin)   // Fetch requests for the admin
 router.post('/fetch-request-users', fetchRequestsForUser)   // Fetch requests for the users
-router.get('/fetch-unread-messages', fetchUnreadMessagesForUser)   // Fetch requests for the users
+router.post('/fetch-unread-messages', fetchUnreadMessagesForUser)   // Fetch requests for the users
 router.post('/checkConversation', checkIfExistingConversation)   // Fetch requests for the users
 router.get('/fetch-last-message/:conversationID', fetchLastMessage);
 router.get('/fetch-last-message-status/:conversationID', fetchLastMessageStatus);
