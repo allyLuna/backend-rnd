@@ -147,7 +147,7 @@ MessagesSchema.statics.fetchLastMessage = async function(conversationID) {
         
         if (messages.length === 0) {
             console.log(`No messages found for conversation ${conversationID}`);
-            return " ";
+            return [];
         }
 
         const message = messages[0];
