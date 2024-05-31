@@ -147,7 +147,7 @@ MessagesSchema.statics.fetchLastMessage = async function(conversationID) {
         
         if (messages.length === 0) {
             console.log(`No messages found for conversation ${conversationID}`);
-            return [];
+            return " ";
         }
 
         const message = messages[0];
@@ -177,7 +177,7 @@ MessagesSchema.statics.fetchLastMessageStatus = async function(conversationID) {
         
         if (messages.length === 0) {
             console.log(`No messages found for conversation ${conversationID}`);
-            return " "; // Assuming null indicates no status found
+            return []; // Assuming null indicates no status found
         }
 
         const message = messages[0];
