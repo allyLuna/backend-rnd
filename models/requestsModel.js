@@ -45,7 +45,7 @@ RequestSchema.statics.createRequest = async (requestID, conversationID, requeste
 
     const requestIDExists = await RequestModel.findOne({ requestID });
     if (requestIDExists) {
-        throw Error('Email already in use');
+        throw Error('Request ID already in use');
     }
 
     try {
