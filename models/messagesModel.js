@@ -87,12 +87,21 @@ MessagesSchema.statics.createMessage = async function (messageID, conversationID
 
 MessagesSchema.statics.getMessages = async function (conversationId) {
     try {
-        const conversations = await this.find({ conversationID: conversationId });
-        return conversations;
+        const messages = await this.find({ conversationID: conversationId });
+
+        // Check if the messages array is empty and return an empty array if true
+        if (messages.length === 0) {
+            console.log(`No messages found for conversationID: ${conversationId}`);
+            return [];
+        }
+
+        return messages;
     } catch (error) {
+        console.error(`Error fetching messages for conversationID: ${conversationId}`, error);
         throw new Error(error.message);
     }
 };
+
 
 // Fetch messages for the conversation id
 // check the messages if the status for the userid is sent
