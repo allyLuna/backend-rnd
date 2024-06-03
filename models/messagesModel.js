@@ -199,6 +199,16 @@ MessagesSchema.statics.fetchLastMessageStatus = async function(conversationID) {
     }
 };
 
+MessagesSchema.statics.deleteMessagesByConversationID = async function(conversationID) {
+    try {
+        const result = await this.deleteMany({ conversationID });
+        console.log(`Deleted ${result.deletedCount} messages for conversation ${conversationID}`);
+        return result.deletedCount;
+    } catch (error) {
+        console.error(`Error deleting messages for conversation ${conversationID}: ${error.message}`);
+        throw error;
+    }
+};
 
 
 // Create a model from the schema

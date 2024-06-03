@@ -513,6 +513,30 @@ const checkIfExistingConversation = async (req, res) => {
     }
 };
 
+const deleteMessagesByConversationID = async (req, res) => {
+    const { conversationID } = req.body; 
+
+    try {
+        const deletedCount = await MessageInfo.deleteMessagesByConversationID(conversationID);
+
+        const successResponse = {
+            statusCode: 200,
+            message: `Deleted ${deletedCount} messages for conversation ${conversationID}`,
+            results: deletedCount
+        };
+
+        res.status(200).json(successResponse);
+    } catch (error) {
+        const errorResponse = {
+            statusCode: 400,
+            message: `Error deleting messages for conversation ${conversationID}: ${error.message}`,
+            results: null
+        };
+        
+        res.status(400).json(errorResponse);
+    }
+};
+
 module.exports = {
     createUser,
     loginUser, 
@@ -534,5 +558,6 @@ module.exports = {
     removeParticipant, 
     fetchLastMessage, 
     fetchLastMessageStatus, 
-    checkIfExistingConversation
+    checkIfExistingConversation, 
+    deleteMessagesByConversationID
 };
