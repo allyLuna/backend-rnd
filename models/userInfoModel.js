@@ -124,7 +124,7 @@ userInfoSchema.statics.getAllUsers = async function () {
 
 userInfoSchema.statics.updateUserInfo = async function (userId, newLocation, newPreferredLanguage) {
     try {
-        const userInfo = await this.findOne({ userId });
+        const userInfo = await this.findOne({ userID: userId });
 
         if (!userInfo) {
             throw new Error('User info not found');
