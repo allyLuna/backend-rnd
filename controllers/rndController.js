@@ -374,11 +374,11 @@ const updateRequestStatus = async (req, res) => {
 
 // Update User Info
 const updateUserInfo = async (req, res) => {
-    const { userId, newLocation, newPreferredLanguage } = req.body;
+    const { userID, newLocation, newPreferredLanguage } = req.body;
 
     try {
 
-        const updatedUserInfo = await UserInfo.updateUserInfo(userId, newLocation, newPreferredLanguage);
+        const updatedUserInfo = await UserInfo.updateUserInfo(userID, newLocation, newPreferredLanguage);
         
         const successResponse = {
             statusCode: 200,
