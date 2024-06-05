@@ -41,7 +41,6 @@ mongoose.connect(process.env.MONGODB_URI)
                     const jsonData = JSON.parse(message);
                     console.log('Parsed JSON:', jsonData);
 
-                    // Broadcast the received message to all clients
                     const jsonString = JSON.stringify(jsonData);
 
                     wss.clients.forEach(function each(client) {
