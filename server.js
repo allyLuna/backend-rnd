@@ -42,9 +42,9 @@ mongoose.connect(process.env.MONGODB_URI)
                     console.log('Parsed JSON:', jsonData);
 
                     const jsonString = JSON.stringify(jsonData);
-
+//client !== ws && 
                     wss.clients.forEach(function each(client) {
-                        if (client !== ws && client.readyState === WebSocket.OPEN) {
+                        if (client.readyState === WebSocket.OPEN) {
                             client.send(jsonString, (error) => {
                                 if (error) {
                                     console.error('Error sending message:', error);
