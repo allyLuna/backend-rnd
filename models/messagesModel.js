@@ -150,33 +150,22 @@ MessagesSchema.statics.updateMessageStatus = async function (conversationId, use
 
 MessagesSchema.statics.fetchLastMessage = async function(conversationID) {
     try {
-        const messages = await this.find({ conversationID })
+        const message = await this.find({ conversationID })
             .sort({ timestamp: -1 })
             .limit(1);
         
-        if (messages.length === 0) {
+        if (message.length === 0) {
             console.log(`No messages found for conversation ${conversationID}`);
             return " ";
         }
-
-        const message = messages[0];
-        const { originalContent, translatedContent, profanity } = message.content;
-        const { censoredContent, detected } = profanity;
-
-        if (detected) {
-            if (translatedContent !== originalContent) {
-                return originalContent;
-            } else {
-                return censoredContent;
-            }
-        } else {
-            return originalContent;
-        }
+        
+        return message;
     } catch (error) {
         console.error(`Error fetching last message: ${error.message}`);
         return "";
     }
 };
+
 
 MessagesSchema.statics.fetchLastMessageStatus = async function(conversationID) {
     try {
