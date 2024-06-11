@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 const validator = require('validator');
+const UserInfo = require('../models/userInfoModel');
 
 const ConversationSchema = new mongoose.Schema({
     conversationID: {
@@ -165,13 +166,7 @@ ConversationSchema.statics.removeParticipantFromConversation = async function (p
             }
         }
 
-        // Function to get participant names (replace with actual logic to get names)
-        const getParticipantName = (id) => {
-            // Placeholder function to get participant name by ID
-            return 'ParticipantName'; // Replace with actual logic
-        };
-
-        const participantToRemove = getParticipantName(participantID);
+        const participantToRemove = await UserInfo.getParticipantName(participantID);
 
         // Remove the name of the participant who left from the conversation title
         const searchString = `${participantToRemove}, `;
@@ -194,6 +189,7 @@ ConversationSchema.statics.removeParticipantFromConversation = async function (p
         throw new Error(`Failed to remove participant: ${error.message}`);
     }
 };
+
 
 ConversationSchema.statics.checkIfExistingConversation = async function (participants) {
     try {

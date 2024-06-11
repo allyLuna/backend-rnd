@@ -149,6 +149,21 @@ userInfoSchema.statics.updateUserInfo = async function (userId, newLocation, new
     }
 };
 
+userInfoSchema.statics.getParticipantName = async function (userId) {
+    try {
+        const userInfo = await this.findOne({ userID: userId });
+
+        if (!userInfo) {
+            return 'Unknown';
+        }
+
+        return `${userInfo.firstName} ${userInfo.lastName}`;
+    } catch (error) {
+        console.error('Error retrieving user information:', error);
+        return 'Unknown';
+    }
+};
+
 
 
 // Create and export the model
