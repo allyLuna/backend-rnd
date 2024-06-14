@@ -187,8 +187,7 @@ const fetchConversations = async (req, res) => {
 
 // Fetch Messages 
 const fetchMessages = async (req, res) => {
-    const { conversationID } = req.params;
-    const { limit, offset, sortBy, order } = req.body;
+    const { conversationID, limit, offset, sortBy, order } = req.body;
     try {
         const messages = await MessageInfo.getMessages(conversationID, limit, offset, sortBy, order );
         const successResponse = {
