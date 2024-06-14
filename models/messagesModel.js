@@ -85,17 +85,57 @@ MessagesSchema.statics.createMessage = async function (messageID, conversationID
 
 
 
-MessagesSchema.statics.getMessages = async function (conversationId) {
+// MessagesSchema.statics.getMessages = async function (conversationId) {
+//     try {
+//         const messages = await this.find({ conversationID: conversationId });
+
+//         // Check if the messages array is empty and return an empty array if true
+//         if (messages.length === 0) {
+//             console.log(`No messages found for conversationID: ${conversationId}`);
+//             return [];
+//         }
+
+//         return messages;
+//     } catch (error) {
+//         console.error(`Error fetching messages for conversationID: ${conversationId}`, error);
+//         throw new Error(error.message);
+//     }
+// };
+
+MessagesSchema.statics.getMessages = async function (conversationId, limit, offset, sortBy, order) {
     try {
-        const messages = await this.find({ conversationID: conversationId });
+        // Validate limit and offset
+        limit = parseInt(limit, 10);
+        offset = parseInt(offset, 10);
+        if (isNaN(limit) || isNaN(offset) || limit <= 0 || offset < 0) {
+            throw new Error("Invalid limit or offset");
+        }
+
+        // Prepare sorting criteria
+        let sortCriteria = {};
+        if (sortBy && order) {
+            sortCriteria[sortBy] = order === 'asc' ? 1 : -1;
+        } else {
+            // Default sorting by timestamp in descending order if not specified
+            sortCriteria.timestamp = -1;
+        }
+
+        // Fetch total count of messages
+        const totalMessages = await this.countDocuments({ conversationID: conversationId });
+
+        // Fetch paginated messages with dynamic sorting
+        const messages = await this.find({ conversationID: conversationId })
+                                   .sort(sortCriteria)
+                                   .skip(offset)
+                                   .limit(limit);
 
         // Check if the messages array is empty and return an empty array if true
         if (messages.length === 0) {
             console.log(`No messages found for conversationID: ${conversationId}`);
-            return [];
+            return { messages: [], totalMessages };
         }
 
-        return messages;
+        return { messages, totalMessages };
     } catch (error) {
         console.error(`Error fetching messages for conversationID: ${conversationId}`, error);
         throw new Error(error.message);
@@ -165,7 +205,6 @@ MessagesSchema.statics.fetchLastMessage = async function(conversationID) {
         return "";
     }
 };
-
 
 MessagesSchema.statics.fetchLastMessageStatus = async function(conversationID) {
     try {
